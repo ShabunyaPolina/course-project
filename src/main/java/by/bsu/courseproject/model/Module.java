@@ -14,9 +14,9 @@ import java.util.List;
 public class Module {
 
     private Long id;
-    private String name;
     private Library library;
-    private Module parent;
+    private String name;
+    private String description;
     private List<String> tags;
 
 }
