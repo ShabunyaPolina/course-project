@@ -8,3 +8,8 @@ spring:
   liquibase:
     enabled: true
     change-log: classpath:db/changelog/db.changelog-master.yaml
+
+mybatis:
+  config-location: classpath:db/mybatis/mybatis-config.xml
+  mapper-locations: classpath:db/mybatis/mapper/*.xml
+  type-aliases-package: by.bsu.courseproject.model
