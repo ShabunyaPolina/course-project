@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="by.bsu.courseproject.persistence.repository.CardRepository">
+
+    <resultMap id="CardResultMap" type="Card" autoMapping="false">
+        <id column="card_id" property="id"/>
+        <result column="card_term" property="term"/>
+        <result column="card_definition" property="definition"/>
+        <result column="card_is_memorised" property="isMemorised"/>
+        <association column="module_id" property="module"
+                     resultMap="by.bsu.courseproject.persistence.repository.ModuleRepository.ModuleResultMap"
+                     autoMapping="false"/>
+    </resultMap>
+
+    <sql id="select_card">
+        SELECT card_id       as "card_id",
+               m.module_id   as "module_id",
+               l.library_id  as "library_id",
+               l.rating      as "library_rating",
+               u.user_id     as "user_id",
+               u.name        as "user_name",
+               u.email       as "user_email",
+               u.password    as "user_password",
+               u.role        as "user_role",
+               m.name        as "module_name",
+               m.description as "module_description",
+               term          as "card_term",
+               definition    as "card_definition",
+               is_memorised  as "card_is_memorised"
+        FROM cards
+                 JOIN modules m USING (module_id)
+                 JOIN libraries l USING (library_id)
+                 JOIN users u USING (user_id)
+    </sql>
+
+    <select id="findById" parameterType="Long" resultMap="CardResultMap">
+        <include refid="select_card"/>
+        WHERE card_id = #{cardId};
+    </select>
+
+    <!--    <select id="findAllByAssignmentId" parameterType="Long" resultMap="TaskResultMap">-->
+    <!--        SELECT-->
+    <!--        <include refid="base_column_list"/>-->
+    <!--        FROM assignments_tasks-->
+    <!--        JOIN tasks USING (task_id)-->
+    <!--        JOIN specializations USING (specialization_id)-->
+    <!--        WHERE assignment_id = #{assignmentId}-->
+    <!--    </select>-->
+
+</mapper>

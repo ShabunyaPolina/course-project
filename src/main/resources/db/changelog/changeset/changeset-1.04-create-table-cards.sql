@@ -8,9 +8,7 @@ CREATE TABLE cards
     module_id BIGINT REFERENCES modules ON DELETE CASCADE,
     term VARCHAR(256) NOT NULL,
     definition VARCHAR(256) NOT NULL,
-    isMemorised BOOLEAN,
-    refresh_time TIMESTAMP,
-    refreshment_stage_id BIGINT REFERENCES refreshment_stages ON DELETE CASCADE
-)
+    is_memorised BOOLEAN
+  )
 
 --rollback drop table cards;

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="by.bsu.courseproject.persistence.repository.ModuleRepository">
+
+    <resultMap id="ModuleResultMap" type="Module" autoMapping="false">
+        <id column="module_id" property="id"/>
+        <result column="module_name" property="name"/>
+        <result column="module_description" property="description"/>
+        <association column="library_id" property="library" resultMap="by.bsu.courseproject.persistence.repository.LibraryRepository.LibraryResultMap"
+                     autoMapping="false"/>
+    </resultMap>
+
+
+</mapper>

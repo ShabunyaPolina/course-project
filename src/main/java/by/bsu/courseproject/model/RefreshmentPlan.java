@@ -5,17 +5,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class RefreshmentPlan {
 
     private Long id;
-    private String name;
-    private String email;
-    private String password;
-    private Role role;
+    private Card card;
+    private LocalDateTime refreshTime;
+    private RefreshmentStage stage;
 
 }

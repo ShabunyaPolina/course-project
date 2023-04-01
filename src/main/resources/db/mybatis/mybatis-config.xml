@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+    <typeAliases>
+        <typeAlias alias="Long" type="java.lang.Long"/>
+        <typeAlias type="by.bsu.courseproject.model.Card" alias="Card"/>
+        <typeAlias type="by.bsu.courseproject.model.Module" alias="Module"/>
+        <typeAlias type="by.bsu.courseproject.model.User" alias="User"/>
+        <typeAlias type="by.bsu.courseproject.model.Library" alias="Library"/>
+    </typeAliases>
+
+</configuration>
