@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="by.bsu.courseproject.persistence.repository.TagRepository">
+
+    <resultMap id="TagResultMap" type="Tag" autoMapping="false">
+        <id column="tag_id" property="id"/>
+        <result column="tag_value" property="value"/>
+    </resultMap>
+
+    <sql id="select_tag">
+        SELECT tag_id  as "tag_id",
+               "value" as "tag_value"
+        FROM tags
+    </sql>
+
+    <insert id="create" keyProperty="id" keyColumn="tag_id" useGeneratedKeys="true">
+        INSERT INTO tags (tag_id, "value")
+        VALUES (default, #{value});
+    </insert>
+
+    <select id="findByValue" resultMap="TagResultMap">
+        <include refid="select_tag"/>
+        WHERE "value" = #{value};
+    </select>
+
+    <insert id="addTagToModule">
+        INSERT INTO modules_tags (module_id, tag_id)
+        VALUES (#{moduleId}, #{tagId});
+    </insert>
+
+</mapper>

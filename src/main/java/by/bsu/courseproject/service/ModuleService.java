@@ -4,6 +4,6 @@ import by.bsu.courseproject.model.Module;
 
 public interface ModuleService {
 
-    Module create(Module module);
+    void create(Module module);
 
 }

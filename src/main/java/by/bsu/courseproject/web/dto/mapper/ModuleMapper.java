@@ -4,7 +4,7 @@ import by.bsu.courseproject.web.dto.ModuleDto;
 import by.bsu.courseproject.model.Module;
 import org.mapstruct.Mapper;
 
-@Mapper(componentModel = "spring", uses = {LibraryMapper.class})
+@Mapper(componentModel = "spring", uses = {LibraryMapper.class, TagListMapper.class})
 public interface ModuleMapper {
 
     Module toModel(ModuleDto dto);
