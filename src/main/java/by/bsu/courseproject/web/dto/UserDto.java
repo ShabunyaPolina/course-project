@@ -6,10 +6,10 @@ public record UserDto(
         //todo constraints
 
         Long id,
-         String name,
-         String email,
-         String password,
-         Role role
+        String name,
+        String email,
+        String password,
+        Role role
 
 ) {
 }
