@@ -39,13 +39,20 @@
         WHERE card_id = #{cardId};
     </select>
 
-    <!--    <select id="findAllByAssignmentId" parameterType="Long" resultMap="TaskResultMap">-->
-    <!--        SELECT-->
-    <!--        <include refid="base_column_list"/>-->
-    <!--        FROM assignments_tasks-->
-    <!--        JOIN tasks USING (task_id)-->
-    <!--        JOIN specializations USING (specialization_id)-->
-    <!--        WHERE assignment_id = #{assignmentId}-->
-    <!--    </select>-->
+    <select id="findByModuleId" parameterType="Long" resultMap="CardResultMap">
+        <include refid="select_card"/>
+        WHERE module_id = #{moduleId};
+    </select>
+
+    <insert id="create" keyProperty="id" keyColumn="card_id" useGeneratedKeys="true">
+        INSERT INTO cards (card_id, module_id, term, definition, is_memorised)
+        VALUES (default, #{module.id}, #{term}, #{definition}, #{isMemorised});
+    </insert>
+
+    <delete id="delete" parameterType="Long">
+        DELETE
+        FROM cards
+        WHERE card_id = #{cardId}
+    </delete>
 
 </mapper>
