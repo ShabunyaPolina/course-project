@@ -5,7 +5,7 @@
 CREATE TABLE modules
 (
     module_id BIGSERIAL PRIMARY KEY,
-    library_id BIGINT REFERENCES libraries ON DELETE CASCADE,
+    library_id BIGINT REFERENCES libraries ON DELETE CASCADE NOT NULL,
     name VARCHAR(64) NOT NULL,
     description VARCHAR(128)
 )

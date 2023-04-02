@@ -5,7 +5,7 @@
 CREATE TABLE refreshment_plans
 (
     refreshment_plan_id BIGSERIAL PRIMARY KEY,
-    card_id BIGINT REFERENCES cards ON DELETE CASCADE,
+    card_id BIGINT REFERENCES cards ON DELETE CASCADE NOT NULL,
     refresh_time TIMESTAMP,
     refreshment_stage VARCHAR(32) NOT NULL
 )

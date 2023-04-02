@@ -7,9 +7,14 @@
         <id column="module_id" property="id"/>
         <result column="module_name" property="name"/>
         <result column="module_description" property="description"/>
-        <association column="library_id" property="library" resultMap="by.bsu.courseproject.persistence.repository.LibraryRepository.LibraryResultMap"
+        <association column="library_id" property="library"
+                     resultMap="by.bsu.courseproject.persistence.repository.LibraryRepository.LibraryResultMap"
                      autoMapping="false"/>
     </resultMap>
 
+    <insert id="create" keyProperty="id" keyColumn="module_id" useGeneratedKeys="true">
+        INSERT INTO modules (module_id, library_id, name, description)
+        VALUES (default, #{library.id}, #{name}, #{description});
+    </insert>
 
 </mapper>
