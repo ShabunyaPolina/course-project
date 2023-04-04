@@ -1,10 +1,12 @@
 spring:
   application:
     name: course-project
+  config:
+    import: optional:.env[.properties]
   datasource:
-    url: jdbc:postgresql://localhost:5432/course-project
-    username: postgres
-    password: 211001
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
   liquibase:
     enabled: true
     change-log: classpath:db/changelog/db.changelog-master.yaml
