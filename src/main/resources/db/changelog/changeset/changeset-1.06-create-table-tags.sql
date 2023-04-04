@@ -5,7 +5,7 @@
 CREATE TABLE tags
 (
     tag_id BIGSERIAL PRIMARY KEY,
-    value VARCHAR(32) NOT NULL
+    value VARCHAR(32) NOT NULL UNIQUE
 )
 
 --rollback drop table tags;

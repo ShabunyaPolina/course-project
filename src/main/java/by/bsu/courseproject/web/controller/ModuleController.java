@@ -28,8 +28,8 @@ public class ModuleController {
                         .id(userId)
                         .build())
                 .build());
-        Module createdModule = moduleService.create(module);
-        return moduleMapper.toDto(createdModule);
+        moduleService.create(module);
+        return moduleMapper.toDto(module);
     }
 
 }

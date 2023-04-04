@@ -5,18 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Module {
+public class Tag {
 
-    private Long id;
-    private Library library;
-    private String name;
-    private String description;
-    private List<Tag> tags;
+    Long id;
+    String value;
 
 }

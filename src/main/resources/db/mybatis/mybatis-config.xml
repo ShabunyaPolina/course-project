@@ -9,6 +9,7 @@
         <typeAlias type="by.bsu.courseproject.model.Module" alias="Module"/>
         <typeAlias type="by.bsu.courseproject.model.User" alias="User"/>
         <typeAlias type="by.bsu.courseproject.model.Library" alias="Library"/>
+        <typeAlias type="by.bsu.courseproject.model.Tag" alias="Tag"/>
     </typeAliases>
 
 </configuration>
