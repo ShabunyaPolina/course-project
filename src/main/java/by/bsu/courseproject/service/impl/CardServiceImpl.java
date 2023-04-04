@@ -1,6 +1,6 @@
 package by.bsu.courseproject.service.impl;
 
-import by.bsu.courseproject.exception.ResourceNotFoundException;
+import by.bsu.courseproject.model.exception.ResourceNotFoundException;
 import by.bsu.courseproject.model.Card;
 import by.bsu.courseproject.persistence.repository.CardRepository;
 import by.bsu.courseproject.service.CardService;

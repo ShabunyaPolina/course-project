@@ -1,4 +1,4 @@
-package by.bsu.courseproject.exception;
+package by.bsu.courseproject.model.exception;
 
 public class ResourceNotFoundException extends RuntimeException {
 
