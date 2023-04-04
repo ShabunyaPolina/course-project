@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import by.bsu.courseproject.model.Module;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ModuleServiceImpl implements ModuleService {
@@ -25,6 +27,11 @@ public class ModuleServiceImpl implements ModuleService {
                     tagService.addTagToModule(tag.getId(), module.getId());
                 }
         );
+    }
+
+    @Override
+    public List<Module> retrieveByLibraryId(Long libraryId) {
+        return moduleRepository.findByLibraryId(libraryId);
     }
 
 }

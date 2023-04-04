@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/libraries/{libraryId}/modules")
@@ -31,6 +33,16 @@ public class ModuleController {
                 .build());
         moduleService.create(module);
         return moduleMapper.toDto(module);
+    }
+
+    @GetMapping
+    @ResponseStatus(value = HttpStatus.OK)
+    private List<ModuleDto> getByLibraryId(
+            @PathVariable Long libraryId
+    ) {
+        return moduleService.retrieveByLibraryId(libraryId).stream()
+                .map(moduleMapper::toDto)
+                .toList();
     }
 
 }
