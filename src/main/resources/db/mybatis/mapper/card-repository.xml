@@ -46,7 +46,7 @@
 
     <insert id="create" keyProperty="id" keyColumn="card_id" useGeneratedKeys="true">
         INSERT INTO cards (card_id, module_id, term, definition, is_memorised)
-        VALUES (default, #{module.id}, #{term}, #{definition}, #{isMemorised});
+        VALUES (default, #{module.id}, #{term}, #{definition}, false);
     </insert>
 
     <delete id="delete" parameterType="Long">
