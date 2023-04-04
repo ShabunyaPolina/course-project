@@ -5,6 +5,7 @@ import by.bsu.courseproject.model.Module;
 import by.bsu.courseproject.service.CardService;
 import by.bsu.courseproject.web.dto.CardDto;
 import by.bsu.courseproject.web.dto.group.OnCreate;
+import by.bsu.courseproject.web.dto.group.OnTag;
 import by.bsu.courseproject.web.dto.mapper.CardMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -39,7 +40,7 @@ public class CardController {
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
     public CardDto create(
-          @Validated(OnCreate.class) @RequestBody CardDto cardDto,
+            @Validated({OnCreate.class, OnTag.class}) @RequestBody CardDto cardDto,
             @PathVariable Long libraryId,
             @PathVariable Long moduleId
     ) {
