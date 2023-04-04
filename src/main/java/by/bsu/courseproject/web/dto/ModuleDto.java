@@ -1,5 +1,6 @@
 package by.bsu.courseproject.web.dto;
 
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
