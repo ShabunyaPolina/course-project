@@ -1,9 +1,10 @@
 package by.bsu.courseproject.service.impl;
 
-import by.bsu.courseproject.model.exception.ResourceNotFoundException;
 import by.bsu.courseproject.model.Card;
+import by.bsu.courseproject.model.exception.ResourceNotFoundException;
 import by.bsu.courseproject.persistence.repository.CardRepository;
 import by.bsu.courseproject.service.CardService;
+import by.bsu.courseproject.service.RefreshmentPlanService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,9 +16,10 @@ import java.util.List;
 public class CardServiceImpl implements CardService {
 
     private final CardRepository cardRepository;
+    private final RefreshmentPlanService refreshmentPlanService;
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Card retrieveById(Long cardId) {
         return cardRepository.findById(cardId)
                 .orElseThrow(
@@ -26,7 +28,7 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Card> retrieveByModuleId(Long moduleId) {
         return cardRepository.findByModuleId(moduleId);
     }
@@ -41,5 +43,16 @@ public class CardServiceImpl implements CardService {
     @Transactional
     public void delete(Long cardId) {
         cardRepository.delete(cardId);
+    }
+
+    @Override
+    @Transactional
+    public void considerRefreshment(Long moduleId, Boolean needsRefreshment) {
+        List<Card> cards = retrieveByModuleId(moduleId);
+        if (needsRefreshment) {
+            //todo
+        } else {
+            //todo
+        }
     }
 }

@@ -1,11 +1,11 @@
 package by.bsu.courseproject.service.impl;
 
+import by.bsu.courseproject.model.Module;
 import by.bsu.courseproject.persistence.repository.ModuleRepository;
 import by.bsu.courseproject.service.ModuleService;
 import by.bsu.courseproject.service.TagService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import by.bsu.courseproject.model.Module;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -30,6 +30,7 @@ public class ModuleServiceImpl implements ModuleService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Module> retrieveByLibraryId(Long libraryId) {
         return moduleRepository.findByLibraryId(libraryId);
     }

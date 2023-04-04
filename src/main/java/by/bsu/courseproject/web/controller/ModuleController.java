@@ -2,6 +2,7 @@ package by.bsu.courseproject.web.controller;
 
 import by.bsu.courseproject.model.Library;
 import by.bsu.courseproject.model.Module;
+import by.bsu.courseproject.service.CardService;
 import by.bsu.courseproject.service.ModuleService;
 import by.bsu.courseproject.web.dto.ModuleDto;
 import by.bsu.courseproject.web.dto.group.OnCreate;
@@ -19,6 +20,7 @@ import java.util.List;
 public class ModuleController {
 
     private final ModuleService moduleService;
+    private final CardService cardService;
     private final ModuleMapper moduleMapper;
 
     @PostMapping
@@ -33,6 +35,14 @@ public class ModuleController {
                 .build());
         moduleService.create(module);
         return moduleMapper.toDto(module);
+    }
+
+    @PatchMapping("/{moduleId}")
+    @ResponseStatus(value = HttpStatus.OK)
+    private void refreshCards(
+            @RequestParam Boolean needsRefreshment,
+            @PathVariable Long libraryId, @PathVariable Long moduleId) {
+        cardService.considerRefreshment(moduleId, needsRefreshment);
     }
 
     @GetMapping
