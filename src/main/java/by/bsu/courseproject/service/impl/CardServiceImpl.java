@@ -1,6 +1,6 @@
 package by.bsu.courseproject.service.impl;
 
-import by.bsu.courseproject.exception.ResourceNotFoundException;
+import by.bsu.courseproject.model.exception.ResourceNotFoundException;
 import by.bsu.courseproject.model.Card;
 import by.bsu.courseproject.persistence.repository.CardRepository;
 import by.bsu.courseproject.service.CardService;
@@ -17,7 +17,7 @@ public class CardServiceImpl implements CardService {
     private final CardRepository cardRepository;
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Card retrieveById(Long cardId) {
         return cardRepository.findById(cardId)
                 .orElseThrow(
@@ -26,7 +26,7 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Card> retrieveByModuleId(Long moduleId) {
         return cardRepository.findByModuleId(moduleId);
     }
@@ -42,4 +42,5 @@ public class CardServiceImpl implements CardService {
     public void delete(Long cardId) {
         cardRepository.delete(cardId);
     }
+
 }

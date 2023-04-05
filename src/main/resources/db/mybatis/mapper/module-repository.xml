@@ -10,11 +10,43 @@
         <association column="library_id" property="library"
                      resultMap="by.bsu.courseproject.persistence.repository.LibraryRepository.LibraryResultMap"
                      autoMapping="false"/>
+        <collection column="tag_id" javaType="ArrayList" resultMap="by.bsu.courseproject.persistence.repository.TagRepository.TagResultMap"
+                    property="tags" ofType="Tag" autoMapping="false"/>
     </resultMap>
+
+    <sql id="select_module">
+        SELECT m.module_id   as "module_id",
+               l.library_id  as "library_id",
+               l.rating      as "library_rating",
+               u.user_id     as "user_id",
+               u.name        as "user_name",
+               u.email       as "user_email",
+               u.password    as "user_password",
+               u.role        as "user_role",
+               m.name        as "module_name",
+               m.description as "module_description",
+               t.tag_id      as "tag_id",
+               t.value       as "tag_value"
+        FROM modules m
+                 JOIN libraries l USING (library_id)
+                 JOIN users u USING (user_id)
+                 JOIN modules_tags mt USING (module_id)
+                 JOIN tags t USING (tag_id)
+    </sql>
 
     <insert id="create" keyProperty="id" keyColumn="module_id" useGeneratedKeys="true">
         INSERT INTO modules (module_id, library_id, name, description)
         VALUES (default, #{library.id}, #{name}, #{description});
     </insert>
+
+    <select id="findByLibraryId" resultMap="ModuleResultMap">
+        <include refid="select_module"/>
+        WHERE library_id = #{libraryId};
+    </select>
+
+    <select id="findById" resultMap="ModuleResultMap">
+        <include refid="select_module"/>
+        WHERE module_id = #{module_id};
+    </select>
 
 </mapper>

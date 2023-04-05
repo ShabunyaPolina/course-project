@@ -11,4 +11,28 @@
         <id column="user_role" property="role"/>
     </resultMap>
 
+    <sql id="select_user">
+        SELECT user_id    as "user_id",
+               "name"     as "user_name",
+               email      as "user_email",
+               "password" as "user_password",
+               "role"     as "user_role"
+        FROM users
+    </sql>
+
+    <insert id="create" keyProperty="id" keyColumn="user_id" useGeneratedKeys="true">
+        INSERT INTO users (user_id, "name", email, "password", "role")
+        VALUES (default, #{name}, #{email}, #{password}, #{role});
+    </insert>
+
+    <select id="findById" resultMap="UserResultMap">
+        <include refid="select_user"/>
+        WHERE user_id = #{userId};
+    </select>
+
+    <select id="findByEmail" resultMap="UserResultMap">
+        <include refid="select_user"/>
+        WHERE email = #{email};
+    </select>
+
 </mapper>

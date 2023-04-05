@@ -1,12 +1,15 @@
 package by.bsu.courseproject.service.impl;
 
+import by.bsu.courseproject.model.Module;
+import by.bsu.courseproject.model.exception.ResourceNotFoundException;
 import by.bsu.courseproject.persistence.repository.ModuleRepository;
 import by.bsu.courseproject.service.ModuleService;
 import by.bsu.courseproject.service.TagService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import by.bsu.courseproject.model.Module;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +28,21 @@ public class ModuleServiceImpl implements ModuleService {
                     tagService.addTagToModule(tag.getId(), module.getId());
                 }
         );
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Module> retrieveByLibraryId(Long libraryId) {
+        return moduleRepository.findByLibraryId(libraryId);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Module retrieveById(Long moduleId) {
+        return moduleRepository.findById(moduleId)
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("Module with id " + moduleId + " not found")
+                );
     }
 
 }
