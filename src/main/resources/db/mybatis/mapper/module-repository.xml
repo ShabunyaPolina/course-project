@@ -38,4 +38,9 @@
         WHERE library_id = #{libraryId};
     </select>
 
+    <select id="findById" resultMap="ModuleResultMap">
+        <include refid="select_module"/>
+        WHERE module_id = #{module_id};
+    </select>
+
 </mapper>

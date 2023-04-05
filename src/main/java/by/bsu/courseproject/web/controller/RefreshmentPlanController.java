@@ -18,7 +18,7 @@ public class RefreshmentPlanController {
 
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
-    private List<RefreshmentPlan> getByStage(@RequestParam RefreshmentStage stage) { //todo dto
+    public List<RefreshmentPlan> getByStage(@RequestParam RefreshmentStage stage) { //todo dto
         return refreshmentPlanService.retrieveByStage(stage);
     }
 
