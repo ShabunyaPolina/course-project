@@ -4,7 +4,7 @@ import by.bsu.courseproject.model.RefreshmentPlan;
 import by.bsu.courseproject.web.dto.RefreshmentPlanDto;
 import org.mapstruct.Mapper;
 
-@Mapper(componentModel = "spring", uses = {LibraryMapper.class})
+@Mapper(componentModel = "spring", uses = {CardMapper.class})
 public interface RefreshmentPlanMapper {
 
     RefreshmentPlan toModel(RefreshmentPlanDto dto);

@@ -14,12 +14,12 @@ public record RefreshmentPlanDto(
         Long id,
 
         @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-        Card card,
+        CardDto card,
 
-        @NotBlank(groups = {OnCreate.class})
+        @JsonProperty(access = JsonProperty.Access.READ_ONLY)
         LocalDateTime refreshTime,
 
-        @NotBlank(groups = {OnCreate.class})
+        @JsonProperty(access = JsonProperty.Access.READ_ONLY)
         RefreshmentStage stage
 
 ) {

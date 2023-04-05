@@ -17,7 +17,7 @@ import java.util.List;
 @RequestMapping("/api/v1/libraries/{libraryId}/refreshment-plans")
 public class RefreshmentPlanController {
 
-    public final RefreshmentPlanService refreshmentPlanService;
+    private final RefreshmentPlanService refreshmentPlanService;
     private final RefreshmentPlanMapper refreshmentPlanMapper;
 
     @GetMapping
