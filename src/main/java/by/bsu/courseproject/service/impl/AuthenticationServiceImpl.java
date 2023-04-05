@@ -1,9 +1,11 @@
 package by.bsu.courseproject.service.impl;
 
 import by.bsu.courseproject.model.AuthEntity;
+import by.bsu.courseproject.model.Library;
 import by.bsu.courseproject.model.Role;
 import by.bsu.courseproject.model.User;
 import by.bsu.courseproject.service.AuthenticationService;
+import by.bsu.courseproject.service.LibraryService;
 import by.bsu.courseproject.service.UserService;
 import by.bsu.courseproject.web.security.JwtManager;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class AuthenticationServiceImpl implements AuthenticationService {
 
     private final UserService userService;
+    private final LibraryService libraryService;
     private final PasswordEncoder passwordEncoder;
     private final JwtManager jwtManager;
     private final AuthenticationManager authenticationManager;
@@ -32,7 +35,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .password(passwordEncoder.encode(authEntity.getPassword()))
                 .role(Role.USER)
                 .build();
+        Library library = Library.builder()
+                .user(user)
+                .build();
         userService.create(user);
+        libraryService.create(library);
         String accessJwt = jwtManager.generateAccessToken(user);
         String refreshJwt = jwtManager.generateRefreshToken(user);
         return AuthEntity.builder()
