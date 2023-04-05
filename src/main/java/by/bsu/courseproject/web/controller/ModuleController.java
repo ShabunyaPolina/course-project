@@ -25,7 +25,7 @@ public class ModuleController {
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
-    private ModuleDto create(
+    public ModuleDto create(
             @Validated(OnCreate.class) @RequestBody ModuleDto moduleDto,
             @PathVariable Long libraryId
     ) {
@@ -39,7 +39,7 @@ public class ModuleController {
 
     @PatchMapping("/{moduleId}")
     @ResponseStatus(value = HttpStatus.OK)
-    private void considerRefreshment(
+    public void considerRefreshment(
             @RequestParam Boolean needsRefreshment,
             @PathVariable Long libraryId, @PathVariable Long moduleId) {
         refreshmentPlanService.considerRefreshment(moduleId, needsRefreshment);
@@ -47,7 +47,7 @@ public class ModuleController {
 
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
-    private List<ModuleDto> getByLibraryId(@PathVariable Long libraryId) {
+    public List<ModuleDto> getByLibraryId(@PathVariable Long libraryId) {
         return moduleService.retrieveByLibraryId(libraryId).stream()
                 .map(moduleMapper::toDto)
                 .toList();

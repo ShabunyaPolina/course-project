@@ -1,7 +1,7 @@
 package by.bsu.courseproject.service.impl;
 
-import by.bsu.courseproject.model.Card;
 import by.bsu.courseproject.model.exception.ResourceNotFoundException;
+import by.bsu.courseproject.model.Card;
 import by.bsu.courseproject.persistence.repository.CardRepository;
 import by.bsu.courseproject.service.CardService;
 import lombok.RequiredArgsConstructor;
@@ -42,6 +42,5 @@ public class CardServiceImpl implements CardService {
     public void delete(Long cardId) {
         cardRepository.delete(cardId);
     }
-
 
 }
