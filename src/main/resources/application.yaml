@@ -10,6 +10,8 @@ spring:
   liquibase:
     enabled: true
     change-log: classpath:db/changelog/db.changelog-master.yaml
+  jackson:
+    default-property-inclusion: NON_NULL
 
 mybatis:
   config-location: classpath:db/mybatis/mybatis-config.xml
