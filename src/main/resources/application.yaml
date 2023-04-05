@@ -15,3 +15,8 @@ mybatis:
   config-location: classpath:db/mybatis/mybatis-config.xml
   mapper-locations: classpath:db/mybatis/mapper/*.xml
   type-aliases-package: by.bsu.courseproject.model
+
+custom:
+  secrets:
+    access-key: ${CUSTOM_SECRETS_ACCESS-KEY}
+    refresh-key: ${CUSTOM_SECRETS_REFRESH-KEY}
