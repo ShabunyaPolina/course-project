@@ -7,6 +7,7 @@ import by.bsu.courseproject.web.dto.CardDto;
 import by.bsu.courseproject.web.dto.group.OnCreate;
 import by.bsu.courseproject.web.dto.group.OnTag;
 import by.bsu.courseproject.web.dto.mapper.CardMapper;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,6 +19,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/libraries/{libraryId}/modules/{moduleId}/cards")
+@SecurityRequirement(name = "Bearer Authentication")
 public class CardController {
 
     private final CardService cardService;

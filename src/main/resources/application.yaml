@@ -17,6 +17,18 @@ mybatis:
   type-aliases-package: by.bsu.courseproject.model
 
 custom:
+  context-path: /api/v1
   secrets:
     access-key: ${CUSTOM_SECRETS_ACCESS-KEY}
     refresh-key: ${CUSTOM_SECRETS_REFRESH-KEY}
+
+springdoc:
+  override-with-generic-response: false
+  swagger-ui:
+    path: ${custom.context-path}/swagger-ui.html
+    url: ${custom.context-path}/v3/api-docs
+    config-url: ${custom.context-path}/v3/api-docs/swagger-config
+    disable-swagger-default-url: true
+  api-docs:
+    path: ${custom.context-path}/v3/api-docs
+
