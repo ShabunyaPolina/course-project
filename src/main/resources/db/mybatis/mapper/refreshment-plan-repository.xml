@@ -46,20 +46,17 @@
         WHERE refreshment_stage = #{stage};
     </select>
 
-    <!--    <select id="findByModuleId" parameterType="Long" resultMap="CardResultMap">-->
-    <!--        <include refid="select_card"/>-->
-    <!--        WHERE module_id = #{moduleId};-->
-    <!--    </select>-->
+    <insert id="createByModuleId" keyProperty="id" keyColumn="refreshment_plan_id">
+        INSERT INTO refreshment_plans (card_id, refresh_time, refreshment_stage)
+        SELECT card_id, now()::date + interval '1 hour', 'FIRST'
+        FROM cards
+        WHERE cards.module_id = #{moduleId};
+    </insert>
 
-    <!--    <insert id="create" keyProperty="id" keyColumn="card_id" useGeneratedKeys="true">-->
-    <!--        INSERT INTO cards (card_id, module_id, term, definition, is_memorised)-->
-    <!--        VALUES (default, #{module.id}, #{term}, #{definition}, false);-->
-    <!--    </insert>-->
-
-    <!--    <delete id="delete" parameterType="Long">-->
-    <!--        DELETE-->
-    <!--        FROM cards-->
-    <!--        WHERE card_id = #{cardId}-->
-    <!--    </delete>-->
+    <delete id="deleteByModuleId" parameterType="Long">
+        DELETE
+        FROM refreshment_plans
+        WHERE card_id IN (SELECT card_id FROM cards WHERE module_id = #{moduleId});
+    </delete>
 
 </mapper>

@@ -11,6 +11,8 @@ public interface RefreshmentPlanRepository {
 
     List<RefreshmentPlan> findByStage(RefreshmentStage stage);
 
-//    void createByModuleId(Long moduleId);
+    void createByModuleId(Long moduleId);
+
+    void deleteByModuleId(Long moduleId);
 
 }

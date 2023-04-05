@@ -28,13 +28,13 @@ public class RefreshmentPlanServiceImpl implements RefreshmentPlanService {
     @Override
     @Transactional
     public void createByModuleId(Long moduleId) {
-//        refreshmentPlanRepository.createByModuleId(moduleId); todo
+        refreshmentPlanRepository.createByModuleId(moduleId);
     }
 
     @Override
     @Transactional
     public void deleteByModuleId(Long moduleId) {
-//        refreshmentPlanRepository.deleteByModuleId(moduleId); todo
+        refreshmentPlanRepository.deleteByModuleId(moduleId);
     }
 
     @Override
@@ -42,6 +42,5 @@ public class RefreshmentPlanServiceImpl implements RefreshmentPlanService {
     public List<RefreshmentPlan> retrieveByStage(RefreshmentStage stage) {
         return refreshmentPlanRepository.findByStage(stage);
     }
-
 
 }
