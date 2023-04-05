@@ -14,6 +14,4 @@ public interface CardService {
 
     void delete(Long cardId);
 
-    void considerRefreshment(Long moduleId, Boolean needsRefreshment);
-
 }

@@ -17,6 +17,7 @@ public class Module {
     private Library library;
     private String name;
     private String description;
+//    private Boolean isPublic; //todo
     private List<Tag> tags;
 
 }

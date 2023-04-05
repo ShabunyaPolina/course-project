@@ -2,8 +2,8 @@ package by.bsu.courseproject.web.controller;
 
 import by.bsu.courseproject.model.Library;
 import by.bsu.courseproject.model.Module;
-import by.bsu.courseproject.service.CardService;
 import by.bsu.courseproject.service.ModuleService;
+import by.bsu.courseproject.service.RefreshmentPlanService;
 import by.bsu.courseproject.web.dto.ModuleDto;
 import by.bsu.courseproject.web.dto.group.OnCreate;
 import by.bsu.courseproject.web.dto.mapper.ModuleMapper;
@@ -20,7 +20,7 @@ import java.util.List;
 public class ModuleController {
 
     private final ModuleService moduleService;
-    private final CardService cardService;
+    private final RefreshmentPlanService refreshmentPlanService;
     private final ModuleMapper moduleMapper;
 
     @PostMapping
@@ -39,17 +39,15 @@ public class ModuleController {
 
     @PatchMapping("/{moduleId}")
     @ResponseStatus(value = HttpStatus.OK)
-    private void refreshCards(
+    private void considerRefreshment(
             @RequestParam Boolean needsRefreshment,
             @PathVariable Long libraryId, @PathVariable Long moduleId) {
-        cardService.considerRefreshment(moduleId, needsRefreshment);
+        refreshmentPlanService.considerRefreshment(moduleId, needsRefreshment);
     }
 
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
-    private List<ModuleDto> getByLibraryId(
-            @PathVariable Long libraryId
-    ) {
+    private List<ModuleDto> getByLibraryId(@PathVariable Long libraryId) {
         return moduleService.retrieveByLibraryId(libraryId).stream()
                 .map(moduleMapper::toDto)
                 .toList();
