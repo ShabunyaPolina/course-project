@@ -29,12 +29,16 @@
                c.definition        as "card_definition",
                c.is_memorised      as "card_is_memorised",
                refresh_time        as "refreshment_plan_refresh_time",
-               refreshment_stage   as "refreshment_plan_refreshment_stage"
+               refreshment_stage   as "refreshment_plan_refreshment_stage",
+               t.tag_id      as "tag_id",
+               t.value as "tag_value"
         FROM refreshment_plans
                  JOIN cards c USING (card_id)
                  JOIN modules m USING (module_id)
                  JOIN libraries l USING (library_id)
                  JOIN users u USING (user_id)
+                 JOIN modules_tags mt USING (module_id)
+                 JOIN tags t USING (tag_id)
     </sql>
 
     <select id="findByStage" resultMap="RefreshmentPlanResultMap">

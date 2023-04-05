@@ -10,5 +10,26 @@
                      autoMapping="false"/>
     </resultMap>
 
+    <sql id="select_library">
+        SELECT library_id as "library_id",
+               rating     as "library_rating",
+               u.user_id  as "user_id",
+               u.name     as "user_name",
+               u.email    as "user_email",
+               u.password as "user_password",
+               u.role     as "user_role"
+        FROM libraries
+                 JOIN users u USING (user_id)
+    </sql>
+
+    <insert id="create" keyProperty="id" keyColumn="library_id" useGeneratedKeys="true">
+        INSERT INTO libraries (library_id, user_id, rating)
+        VALUES (default, #{user.id}, 0.0);
+    </insert>
+
+    <select id="findById" resultMap="LibraryResultMap">
+        <include refid="select_library"/>
+        WHERE library_id = #{libraryId};
+    </select>
 
 </mapper>

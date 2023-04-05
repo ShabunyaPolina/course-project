@@ -10,4 +10,6 @@ public interface ModuleService {
 
     List<Module> retrieveByLibraryId(Long libraryId);
 
+    Module retrieveById(Long moduleId);
+
 }

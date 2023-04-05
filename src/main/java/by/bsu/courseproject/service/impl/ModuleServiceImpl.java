@@ -1,6 +1,7 @@
 package by.bsu.courseproject.service.impl;
 
 import by.bsu.courseproject.model.Module;
+import by.bsu.courseproject.model.exception.ResourceNotFoundException;
 import by.bsu.courseproject.persistence.repository.ModuleRepository;
 import by.bsu.courseproject.service.ModuleService;
 import by.bsu.courseproject.service.TagService;
@@ -33,6 +34,15 @@ public class ModuleServiceImpl implements ModuleService {
     @Transactional(readOnly = true)
     public List<Module> retrieveByLibraryId(Long libraryId) {
         return moduleRepository.findByLibraryId(libraryId);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Module retrieveById(Long moduleId) {
+        return moduleRepository.findById(moduleId)
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("Module with id " + moduleId + " not found")
+                );
     }
 
 }

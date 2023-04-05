@@ -3,6 +3,7 @@ package by.bsu.courseproject.web.controller;
 import by.bsu.courseproject.model.RefreshmentPlan;
 import by.bsu.courseproject.model.RefreshmentStage;
 import by.bsu.courseproject.service.RefreshmentPlanService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import by.bsu.courseproject.web.dto.RefreshmentPlanDto;
 import by.bsu.courseproject.web.dto.mapper.ModuleMapper;
 import by.bsu.courseproject.web.dto.mapper.RefreshmentPlanMapper;
@@ -15,6 +16,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/libraries/{libraryId}/refreshment-plans")
+@SecurityRequirement(name = "Bearer Authentication")
 public class RefreshmentPlanController {
 
     private final RefreshmentPlanService refreshmentPlanService;

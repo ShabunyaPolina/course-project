@@ -27,11 +27,15 @@
                m.description as "module_description",
                term          as "card_term",
                definition    as "card_definition",
-               is_memorised  as "card_is_memorised"
+               is_memorised  as "card_is_memorised",
+               t.tag_id      as "tag_id",
+               t.value       as "tag_value"
         FROM cards
                  JOIN modules m USING (module_id)
                  JOIN libraries l USING (library_id)
                  JOIN users u USING (user_id)
+                 JOIN modules_tags mt USING (module_id)
+                 JOIN tags t USING (tag_id)
     </sql>
 
     <select id="findById" parameterType="Long" resultMap="CardResultMap">
