@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/libraries/{libraryId}/refreshment-plans")
-public class RefreshmentController {
+public class RefreshmentPlanController {
 
     private final RefreshmentPlanService refreshmentPlanService;
 

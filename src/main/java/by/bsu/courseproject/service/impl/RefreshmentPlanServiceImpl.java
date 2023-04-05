@@ -38,6 +38,7 @@ public class RefreshmentPlanServiceImpl implements RefreshmentPlanService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<RefreshmentPlan> retrieveByStage(RefreshmentStage stage) {
         return refreshmentPlanRepository.findByStage(stage);
     }
