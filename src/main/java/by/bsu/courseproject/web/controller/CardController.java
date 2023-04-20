@@ -7,6 +7,7 @@ import by.bsu.courseproject.web.dto.CardDto;
 import by.bsu.courseproject.web.dto.group.OnCreate;
 import by.bsu.courseproject.web.dto.group.OnTag;
 import by.bsu.courseproject.web.dto.mapper.CardMapper;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,10 @@ public class CardController {
     private final CardService cardService;
     private final CardMapper cardMapper;
 
+
+    @Operation(
+            summary = "Get card by id"
+    )
     @GetMapping("/{cardId}")
     @ResponseStatus(value = HttpStatus.OK)
     @PreAuthorize("""
@@ -39,6 +44,10 @@ public class CardController {
         return cardMapper.toDto(retrievedCard);
     }
 
+
+    @Operation(
+            summary = "Get all cards in module"
+    )
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
     @PreAuthorize("""
@@ -52,6 +61,9 @@ public class CardController {
     }
 
     //TODO
+    @Operation(
+            summary = "Add card to module"
+    )
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
     @PreAuthorize("""
@@ -72,6 +84,10 @@ public class CardController {
         return cardMapper.toDto(card);
     }
 
+
+    @Operation(
+            summary = "Delete card from module"
+    )
     @DeleteMapping("/{cardId}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     @PreAuthorize("""

@@ -48,7 +48,7 @@
 
     <insert id="createByModuleId" keyProperty="id" keyColumn="refreshment_plan_id">
         INSERT INTO refreshment_plans (card_id, refresh_time, refreshment_stage)
-        SELECT card_id, now()::date + interval '1 hour', 'FIRST'
+        SELECT card_id, now()::timestamp + interval '1 hour', 'FIRST'
         FROM cards
         WHERE cards.module_id = #{moduleId};
     </insert>
