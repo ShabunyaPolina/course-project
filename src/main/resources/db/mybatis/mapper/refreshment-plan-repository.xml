@@ -30,8 +30,8 @@
                c.is_memorised      as "card_is_memorised",
                refresh_time        as "refreshment_plan_refresh_time",
                refreshment_stage   as "refreshment_plan_refreshment_stage",
-               t.tag_id      as "tag_id",
-               t.value as "tag_value"
+               t.tag_id            as "tag_id",
+               t.value             as "tag_value"
         FROM refreshment_plans
                  JOIN cards c USING (card_id)
                  JOIN modules m USING (module_id)
@@ -43,7 +43,8 @@
 
     <select id="findByStage" resultMap="RefreshmentPlanResultMap">
         <include refid="select_refreshment_plan"/>
-        WHERE refreshment_stage = #{stage};
+        WHERE refreshment_stage = #{stage}
+        AND library_id = #{libraryId};
     </select>
 
     <insert id="createByModuleId" keyProperty="id" keyColumn="refreshment_plan_id">
@@ -58,5 +59,11 @@
         FROM refreshment_plans
         WHERE card_id IN (SELECT card_id FROM cards WHERE module_id = #{moduleId});
     </delete>
+
+    <select id="findPending" resultMap="RefreshmentPlanResultMap">
+        <include refid="select_refreshment_plan"/>
+        WHERE now()::timestamp >= refresh_time
+        AND library_id = #{libraryId};
+    </select>
 
 </mapper>

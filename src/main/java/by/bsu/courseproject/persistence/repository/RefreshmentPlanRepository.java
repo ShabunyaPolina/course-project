@@ -9,10 +9,12 @@ import java.util.List;
 @Mapper
 public interface RefreshmentPlanRepository {
 
-    List<RefreshmentPlan> findByStage(RefreshmentStage stage);
+    List<RefreshmentPlan> findByStage(RefreshmentStage stage, Long libraryId);
 
     void createByModuleId(Long moduleId);
 
     void deleteByModuleId(Long moduleId);
+
+    List<RefreshmentPlan> findPending(Long libraryId);
 
 }

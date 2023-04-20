@@ -21,14 +21,21 @@ public class RefreshmentPlanController {
     private final RefreshmentPlanService refreshmentPlanService;
     private final RefreshmentPlanMapper refreshmentPlanMapper;
 
-
     @Operation(
             summary = "Get all cards by refreshment stage"
     )
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
-    public List<RefreshmentPlanDto> getByStage(@RequestParam RefreshmentStage stage) {
-        return refreshmentPlanService.retrieveByStage(stage).stream()
+    public List<RefreshmentPlanDto> getByStage(@RequestParam RefreshmentStage stage, @PathVariable Long libraryId) {
+        return refreshmentPlanService.retrieveByStage(stage, libraryId).stream()
+                .map(refreshmentPlanMapper::toDto)
+                .toList();
+    }
+
+    @GetMapping("/pending")
+    @ResponseStatus(value = HttpStatus.OK)
+    public List<RefreshmentPlanDto> getPending(@PathVariable Long libraryId) {
+        return refreshmentPlanService.retrievePending(libraryId).stream()
                 .map(refreshmentPlanMapper::toDto)
                 .toList();
     }

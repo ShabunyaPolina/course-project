@@ -39,8 +39,14 @@ public class RefreshmentPlanServiceImpl implements RefreshmentPlanService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<RefreshmentPlan> retrieveByStage(RefreshmentStage stage) {
-        return refreshmentPlanRepository.findByStage(stage);
+    public List<RefreshmentPlan> retrieveByStage(RefreshmentStage stage, Long libraryId) {
+        return refreshmentPlanRepository.findByStage(stage,libraryId);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<RefreshmentPlan> retrievePending(Long libraryId) {
+        return refreshmentPlanRepository.findPending(libraryId);
     }
 
 }

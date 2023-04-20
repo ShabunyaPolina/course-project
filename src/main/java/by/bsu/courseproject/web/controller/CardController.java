@@ -37,9 +37,9 @@ public class CardController {
             && @securityExpressions.hasModule(#libraryId,#moduleId)
             && @securityExpressions.hasCard(#moduleId,#cardId)
             """)
-    public CardDto getById(@PathVariable Long cardId,
-                           @PathVariable Long libraryId,
-                           @PathVariable Long moduleId) {
+    public CardDto getById(@PathVariable Long libraryId,
+                           @PathVariable Long moduleId,
+                           @PathVariable Long cardId) {
         Card retrievedCard = cardService.retrieveById(cardId);
         return cardMapper.toDto(retrievedCard);
     }
@@ -54,7 +54,7 @@ public class CardController {
             @securityExpressions.hasLibrary(#libraryId)
             && @securityExpressions.hasModule(#libraryId,#moduleId)
             """)
-    public List<CardDto> getByModuleId(@PathVariable Long moduleId, @PathVariable Long libraryId) {
+    public List<CardDto> getByModuleId(@PathVariable Long libraryId, @PathVariable Long moduleId) {
         return cardService.retrieveByModuleId(moduleId).stream()
                 .map(cardMapper::toDto)
                 .toList();
@@ -95,9 +95,9 @@ public class CardController {
             && @securityExpressions.hasModule(#libraryId,#moduleId)
             && @securityExpressions.hasCard(#moduleId,#cardId)
             """)
-    public void delete(@PathVariable Long cardId,
-                       @PathVariable Long libraryId,
-                       @PathVariable Long moduleId) {
+    public void delete(@PathVariable Long libraryId,
+                       @PathVariable Long moduleId,
+                       @PathVariable Long cardId) {
         cardService.delete(cardId);
     }
 
