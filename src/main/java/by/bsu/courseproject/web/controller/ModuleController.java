@@ -27,7 +27,6 @@ public class ModuleController {
     private final RefreshmentPlanService refreshmentPlanService;
     private final ModuleMapper moduleMapper;
 
-
     @Operation(
             summary = "Create module"
     )

@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,6 +27,7 @@ public class RefreshmentPlanController {
     )
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
+    @PreAuthorize("@securityExpressions.hasLibrary(#libraryId)")
     public List<RefreshmentPlanDto> getByStage(@RequestParam RefreshmentStage stage, @PathVariable Long libraryId) {
         return refreshmentPlanService.retrieveByStage(stage, libraryId).stream()
                 .map(refreshmentPlanMapper::toDto)
@@ -34,6 +36,7 @@ public class RefreshmentPlanController {
 
     @GetMapping("/pending")
     @ResponseStatus(value = HttpStatus.OK)
+    @PreAuthorize("@securityExpressions.hasLibrary(#libraryId)")
     public List<RefreshmentPlanDto> getPending(@PathVariable Long libraryId) {
         return refreshmentPlanService.retrievePending(libraryId).stream()
                 .map(refreshmentPlanMapper::toDto)
