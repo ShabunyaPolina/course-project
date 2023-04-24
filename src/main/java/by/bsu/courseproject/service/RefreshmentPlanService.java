@@ -15,6 +15,8 @@ public interface RefreshmentPlanService {
 
     List<RefreshmentPlan> retrieveByStage(RefreshmentStage stage, Long libraryId);
 
-    List<RefreshmentPlan> retrievePending(Long libraryId);
+    List<RefreshmentPlan> retrievePendingByLibrary(Long libraryId);
+
+    List<RefreshmentPlan> retrievePendingByModule(Long moduleId);
 
 }

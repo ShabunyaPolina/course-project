@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/libraries/{libraryId}/refreshment-plans")
+@RequestMapping("/api/v1/libraries/{libraryId}")
 @SecurityRequirement(name = "Bearer Authentication")
 public class RefreshmentPlanController {
 
@@ -25,7 +25,7 @@ public class RefreshmentPlanController {
     @Operation(
             summary = "Get all cards by refreshment stage"
     )
-    @GetMapping
+    @GetMapping("/refreshment-plans")
     @ResponseStatus(value = HttpStatus.OK)
     @PreAuthorize("@securityExpressions.hasLibrary(#libraryId)")
     public List<RefreshmentPlanDto> getByStage(@RequestParam RefreshmentStage stage, @PathVariable Long libraryId) {
@@ -34,11 +34,23 @@ public class RefreshmentPlanController {
                 .toList();
     }
 
-    @GetMapping("/pending")
+    @GetMapping("/refreshment-plans/pending")
     @ResponseStatus(value = HttpStatus.OK)
     @PreAuthorize("@securityExpressions.hasLibrary(#libraryId)")
-    public List<RefreshmentPlanDto> getPending(@PathVariable Long libraryId) {
-        return refreshmentPlanService.retrievePending(libraryId).stream()
+    public List<RefreshmentPlanDto> getPendingByLibrary(@PathVariable Long libraryId) {
+        return refreshmentPlanService.retrievePendingByLibrary(libraryId).stream()
+                .map(refreshmentPlanMapper::toDto)
+                .toList();
+    }
+
+    @GetMapping("/modules/{moduleId}/refreshment-plans/pending")
+    @ResponseStatus(value = HttpStatus.OK)
+    @PreAuthorize("""
+            @securityExpressions.hasLibrary(#libraryId)
+            && @securityExpressions.hasModule(#libraryId,#moduleId)
+            """)
+    public List<RefreshmentPlanDto> getPendingByModule(@PathVariable Long libraryId, @PathVariable Long moduleId) {
+        return refreshmentPlanService.retrievePendingByModule(moduleId).stream()
                 .map(refreshmentPlanMapper::toDto)
                 .toList();
     }

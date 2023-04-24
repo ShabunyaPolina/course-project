@@ -60,10 +60,16 @@
         WHERE card_id IN (SELECT card_id FROM cards WHERE module_id = #{moduleId});
     </delete>
 
-    <select id="findPending" resultMap="RefreshmentPlanResultMap">
+    <select id="findPendingByLibrary" resultMap="RefreshmentPlanResultMap">
         <include refid="select_refreshment_plan"/>
         WHERE now()::timestamp >= refresh_time
         AND library_id = #{libraryId};
+    </select>
+
+    <select id="findPendingByModule" resultMap="RefreshmentPlanResultMap">
+        <include refid="select_refreshment_plan"/>
+        WHERE now()::timestamp >= refresh_time
+        AND module_id = #{moduleId};
     </select>
 
 </mapper>

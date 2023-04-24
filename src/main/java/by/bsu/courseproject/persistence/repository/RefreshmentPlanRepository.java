@@ -15,6 +15,8 @@ public interface RefreshmentPlanRepository {
 
     void deleteByModuleId(Long moduleId);
 
-    List<RefreshmentPlan> findPending(Long libraryId);
+    List<RefreshmentPlan> findPendingByLibrary(Long libraryId);
+
+    List<RefreshmentPlan> findPendingByModule(Long moduleId);
 
 }

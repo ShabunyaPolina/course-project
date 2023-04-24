@@ -45,8 +45,14 @@ public class RefreshmentPlanServiceImpl implements RefreshmentPlanService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<RefreshmentPlan> retrievePending(Long libraryId) {
-        return refreshmentPlanRepository.findPending(libraryId);
+    public List<RefreshmentPlan> retrievePendingByLibrary(Long libraryId) {
+        return refreshmentPlanRepository.findPendingByLibrary(libraryId);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<RefreshmentPlan> retrievePendingByModule(Long moduleId) {
+        return refreshmentPlanRepository.findPendingByModule(moduleId);
     }
 
 }
