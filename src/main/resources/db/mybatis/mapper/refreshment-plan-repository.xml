@@ -53,7 +53,8 @@
 
     <select id="findByStage" resultMap="RefreshmentPlanResultMap">
         <include refid="select_refreshment_plan"/>
-        WHERE refreshment_stage = #{stage};
+        WHERE refreshment_stage = #{stage}
+        AND library_id = #{libraryId};
     </select>
 
     <insert id="createByModuleId" keyProperty="id" keyColumn="refreshment_plan_id">
@@ -80,5 +81,17 @@
         SET refreshment_stage = #{stage}
         WHERE refreshment_plan_id = #{id};
     </update>
+
+    <select id="findPendingByLibrary" resultMap="RefreshmentPlanResultMap">
+        <include refid="select_refreshment_plan"/>
+        WHERE now()::timestamp >= refresh_time
+        AND library_id = #{libraryId};
+    </select>
+
+    <select id="findPendingByModule" resultMap="RefreshmentPlanResultMap">
+        <include refid="select_refreshment_plan"/>
+        WHERE now()::timestamp >= refresh_time
+        AND module_id = #{moduleId};
+    </select>
 
 </mapper>

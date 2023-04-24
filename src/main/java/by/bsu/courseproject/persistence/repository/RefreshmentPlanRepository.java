@@ -11,7 +11,7 @@ public interface RefreshmentPlanRepository {
 
     RefreshmentPlan findById(Long id);
 
-    List<RefreshmentPlan> findByStage(RefreshmentStage stage);
+    List<RefreshmentPlan> findByStage(RefreshmentStage stage, Long libraryId);
 
     void createByModuleId(Long moduleId);
 
@@ -20,5 +20,9 @@ public interface RefreshmentPlanRepository {
     void deleteByModuleId(Long moduleId);
 
     void changeStage(Long id, RefreshmentStage stage);
+
+    List<RefreshmentPlan> findPendingByLibrary(Long libraryId);
+
+    List<RefreshmentPlan> findPendingByModule(Long moduleId);
 
 }

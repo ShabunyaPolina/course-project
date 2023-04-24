@@ -7,6 +7,7 @@ import by.bsu.courseproject.service.RefreshmentPlanService;
 import by.bsu.courseproject.web.dto.ModuleDto;
 import by.bsu.courseproject.web.dto.group.OnCreate;
 import by.bsu.courseproject.web.dto.mapper.ModuleMapper;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,9 @@ public class ModuleController {
     private final RefreshmentPlanService refreshmentPlanService;
     private final ModuleMapper moduleMapper;
 
+    @Operation(
+            summary = "Create module"
+    )
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
     @PreAuthorize("@securityExpressions.hasLibrary(#libraryId)")
@@ -41,6 +45,10 @@ public class ModuleController {
         return moduleMapper.toDto(module);
     }
 
+
+    @Operation(
+            summary = "Add to refreshment plan/delete from refreshment plan all cards from module"
+    )
     @PatchMapping("/{moduleId}")
     @ResponseStatus(value = HttpStatus.OK)
     @PreAuthorize("""
@@ -53,6 +61,10 @@ public class ModuleController {
         refreshmentPlanService.considerRefreshment(moduleId, needsRefreshment);
     }
 
+
+    @Operation(
+            summary = "Get all modules in library"
+    )
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
     @PreAuthorize("""

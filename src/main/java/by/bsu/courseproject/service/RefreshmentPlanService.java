@@ -17,7 +17,11 @@ public interface RefreshmentPlanService {
 
     void deleteByModuleId(Long moduleId);
 
-    List<RefreshmentPlan> retrieveByStage(RefreshmentStage stage);
+    List<RefreshmentPlan> retrieveByStage(RefreshmentStage stage, Long libraryId);
+
+    List<RefreshmentPlan> retrievePendingByLibrary(Long libraryId);
+
+    List<RefreshmentPlan> retrievePendingByModule(Long moduleId);
 
     void changeStage(Long refreshmentPlanId, Boolean isNext);
 

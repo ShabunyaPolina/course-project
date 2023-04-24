@@ -7,6 +7,7 @@ import by.bsu.courseproject.web.dto.group.OnAuthenticate;
 import by.bsu.courseproject.web.dto.group.OnRefresh;
 import by.bsu.courseproject.web.dto.group.OnRegister;
 import by.bsu.courseproject.web.dto.mapper.AuthEntityMapper;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +23,9 @@ public class AuthenticationController {
     private final AuthenticationService authenticationService;
     private final AuthEntityMapper authEntityMapper;
 
+    @Operation(
+            summary = "User registration"
+    )
     @PostMapping("/register")
     public AuthEntityDto register(@Validated(OnRegister.class) @RequestBody AuthEntityDto authEntityDto) {
         AuthEntity authEntity = authEntityMapper.toEntity(authEntityDto);
@@ -30,6 +34,10 @@ public class AuthenticationController {
         );
     }
 
+
+    @Operation(
+            summary = "User authentication"
+    )
     @PostMapping("/authenticate")
     public AuthEntityDto authenticate(@Validated(OnAuthenticate.class) @RequestBody AuthEntityDto authEntityDto) {
         AuthEntity authEntity = authEntityMapper.toEntity(authEntityDto);
@@ -38,6 +46,10 @@ public class AuthenticationController {
         );
     }
 
+
+    @Operation(
+            summary = "Refresh access token"
+    )
     @PostMapping("/refresh")
     public AuthEntityDto refresh(@Validated(OnRefresh.class) @RequestBody AuthEntityDto authEntityDto) {
         AuthEntity authEntity = authEntityMapper.toEntity(authEntityDto);

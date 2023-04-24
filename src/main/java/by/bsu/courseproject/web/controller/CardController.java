@@ -7,6 +7,7 @@ import by.bsu.courseproject.web.dto.CardDto;
 import by.bsu.courseproject.web.dto.group.OnCreate;
 import by.bsu.courseproject.web.dto.group.OnTag;
 import by.bsu.courseproject.web.dto.mapper.CardMapper;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,10 @@ public class CardController {
     private final CardService cardService;
     private final CardMapper cardMapper;
 
+
+    @Operation(
+            summary = "Get card by id"
+    )
     @GetMapping("/{cardId}")
     @ResponseStatus(value = HttpStatus.OK)
     @PreAuthorize("""
@@ -32,26 +37,33 @@ public class CardController {
             && @securityExpressions.hasModule(#libraryId,#moduleId)
             && @securityExpressions.hasCard(#moduleId,#cardId)
             """)
-    public CardDto getById(@PathVariable Long cardId,
-                           @PathVariable Long libraryId,
-                           @PathVariable Long moduleId) {
+    public CardDto getById(@PathVariable Long libraryId,
+                           @PathVariable Long moduleId,
+                           @PathVariable Long cardId) {
         Card retrievedCard = cardService.retrieveById(cardId);
         return cardMapper.toDto(retrievedCard);
     }
 
+
+    @Operation(
+            summary = "Get all cards in module"
+    )
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
     @PreAuthorize("""
             @securityExpressions.hasLibrary(#libraryId)
             && @securityExpressions.hasModule(#libraryId,#moduleId)
             """)
-    public List<CardDto> getByModuleId(@PathVariable Long moduleId, @PathVariable Long libraryId) {
+    public List<CardDto> getByModuleId(@PathVariable Long libraryId, @PathVariable Long moduleId) {
         return cardService.retrieveByModuleId(moduleId).stream()
                 .map(cardMapper::toDto)
                 .toList();
     }
 
     //TODO
+    @Operation(
+            summary = "Add card to module"
+    )
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
     @PreAuthorize("""
@@ -72,6 +84,10 @@ public class CardController {
         return cardMapper.toDto(card);
     }
 
+
+    @Operation(
+            summary = "Delete card from module"
+    )
     @DeleteMapping("/{cardId}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     @PreAuthorize("""
@@ -79,9 +95,9 @@ public class CardController {
             && @securityExpressions.hasModule(#libraryId,#moduleId)
             && @securityExpressions.hasCard(#moduleId,#cardId)
             """)
-    public void delete(@PathVariable Long cardId,
-                       @PathVariable Long libraryId,
-                       @PathVariable Long moduleId) {
+    public void delete(@PathVariable Long libraryId,
+                       @PathVariable Long moduleId,
+                       @PathVariable Long cardId) {
         cardService.delete(cardId);
     }
 
