@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="by.bsu.courseproject.persistence.repository.RefreshmentStageRepository">
+
+    <resultMap id="RefreshmentStageResultMap" type="RefreshmentStage" autoMapping="false">
+        <id column="refreshment_stage_id" property="id"/>
+        <result column="refreshment_stage_order" property="order"/>
+        <result column="refreshment_stage_interval" property="interval"/>
+    </resultMap>
+
+    <sql id="select_refreshment_plan">
+        SELECT refreshment_stage_id as "refreshment_stage_id",
+               "order"           as "refreshment_stage_order",
+               "interval"          as "refreshment_stage_interval"
+        FROM refreshment_stages
+    </sql>
+
+</mapper>

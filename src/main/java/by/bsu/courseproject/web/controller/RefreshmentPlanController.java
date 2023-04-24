@@ -1,14 +1,13 @@
 package by.bsu.courseproject.web.controller;
 
-import by.bsu.courseproject.model.RefreshmentPlan;
 import by.bsu.courseproject.model.RefreshmentStage;
 import by.bsu.courseproject.service.RefreshmentPlanService;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import by.bsu.courseproject.web.dto.RefreshmentPlanDto;
-import by.bsu.courseproject.web.dto.mapper.ModuleMapper;
 import by.bsu.courseproject.web.dto.mapper.RefreshmentPlanMapper;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,17 +29,18 @@ public class RefreshmentPlanController {
                 .toList();
     }
 
-    @PostMapping
+    @PostMapping("/{refreshmentPlanId}")
     @ResponseStatus(value = HttpStatus.OK)
-    public void considerRefreshment(@RequestParam Long moduleId,
-                                    @RequestParam Boolean needsRefreshment) {
-        refreshmentPlanService.considerRefreshment(moduleId, needsRefreshment);
+    @PreAuthorize("""
+            @securityExpressions.hasLibrary(#libraryId)
+            && @securityExpressions.hasRefreshmentPlan(#libraryId,#refreshmentPlanId)
+            """)
+    public void changeStage(
+            @PathVariable Long libraryId,
+            @PathVariable Long refreshmentPlanId,
+            @RequestParam Boolean isNext
+    ) {
+        refreshmentPlanService.changeStage(refreshmentPlanId, isNext);
     }
 
-    @PostMapping("/{id}") // TODO
-    @ResponseStatus(value = HttpStatus.OK)
-    public void changeStage(@PathVariable("id") Long refreshmentPlanId,
-                            @RequestParam RefreshmentStage newStage) {
-        RefreshmentPlan refreshmentPlan = refreshmentPlanService.
-    }
 }

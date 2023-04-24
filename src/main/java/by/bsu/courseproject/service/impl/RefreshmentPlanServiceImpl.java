@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Duration;
+import java.time.Period;
 import java.util.List;
 
 @Service
@@ -56,23 +58,25 @@ public class RefreshmentPlanServiceImpl implements RefreshmentPlanService {
 
     @Override
     @Transactional
-    public void changeStage(Long id, Boolean isNext) { // TODO
-        RefreshmentStage currentStage = retrieveById(id).getStage();
-        RefreshmentStage newStage;
-
-        if(isNext) {
-            if(currentStage == RefreshmentStage.THIRD) {
-                deleteById(id);
-            } else {
-                newStage = currentStage.next();
-                refreshmentPlanRepository.changeStage(id, newStage);
-            }
-        } else {
-            if(currentStage != RefreshmentStage.FIRST) {
-                newStage = currentStage.next();
-            }
-            refreshmentPlanRepository.changeStage(id, newStage);
-        }
+    public void changeStage(Long refreshmentPlanId, Boolean isNext) {
+        // todo is pending check
+        RefreshmentPlan refreshmentPlan = retrieveById(refreshmentPlanId);
+        RefreshmentStage currentStage = refreshmentPlan.getStage();
+//        if(isNext) {
+//            if(currentStage == RefreshmentStage.THIRD) {
+//                deleteById(refreshmentPlanId);
+//                refreshmentPlan.getCard().setIsMemorised(true);
+//            } else {
+//                Duration
+//                newStage = currentStage.next();
+//                refreshmentPlanRepository.changeStage(refreshmentPlanId, newStage);
+//            }
+//        } else {
+//            if(currentStage != RefreshmentStage.FIRST) {
+//                newStage = currentStage.next();
+//            }
+//            refreshmentPlanRepository.changeStage(refreshmentPlanId, newStage);
+//        }
     }
 
 }

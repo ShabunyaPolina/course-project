@@ -1,24 +1,19 @@
 package by.bsu.courseproject.model;
 
-public enum RefreshmentStage {
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-    FIRST(1),
-    SECOND(3),
-    THIRD(5);
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class RefreshmentStage {
 
-    public final Integer interval;
-    public static final RefreshmentStage[] values = values();
-
-    private RefreshmentStage(Integer interval) {
-        this.interval = interval;
-    }
-
-    public RefreshmentStage prev() {
-        return values[(ordinal() - 1  + values.length) % values.length];
-    }
-
-    public RefreshmentStage next() {
-        return values[(ordinal() + 1) % values.length];
-    }
+    Long id;
+    Integer order;
+    Long interval;
 
 }
+

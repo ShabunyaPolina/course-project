@@ -6,42 +6,47 @@
     <resultMap id="RefreshmentPlanResultMap" type="RefreshmentPlan" autoMapping="false">
         <id column="refreshment_plan_id" property="id"/>
         <result column="refreshment_plan_refresh_time" property="refreshTime"/>
-        <result column="refreshment_plan_refreshment_stage" property="stage"/>
         <association column="card_id" property="card"
                      resultMap="by.bsu.courseproject.persistence.repository.CardRepository.CardResultMap"
+                     autoMapping="false"/>
+        <association column="refreshment_stage_id" property="stage"
+                     resultMap="by.bsu.courseproject.persistence.repository.RefreshmentStageRepositoryRepository.RefreshmentStageResultMap"
                      autoMapping="false"/>
     </resultMap>
 
     <sql id="select_refreshment_plan">
-        SELECT refreshment_plan_id as "refreshment_plan_id",
-               c.card_id           as "card_id",
-               m.module_id         as "module_id",
-               l.library_id        as "library_id",
-               l.rating            as "library_rating",
-               u.user_id           as "user_id",
-               u.name              as "user_name",
-               u.email             as "user_email",
-               u.password          as "user_password",
-               u.role              as "user_role",
-               m.name              as "module_name",
-               m.description       as "module_description",
-               c.term              as "card_term",
-               c.definition        as "card_definition",
-               c.is_memorised      as "card_is_memorised",
-               refresh_time        as "refreshment_plan_refresh_time",
-               refreshment_stage   as "refreshment_plan_refreshment_stage",
-               t.tag_id      as "tag_id",
-               t.value as "tag_value"
+        SELECT refreshment_plan_id     as "refreshment_plan_id",
+               c.card_id               as "card_id",
+               m.module_id             as "module_id",
+               l.library_id            as "library_id",
+               l.rating                as "library_rating",
+               u.user_id               as "user_id",
+               u.name                  as "user_name",
+               u.email                 as "user_email",
+               u.password              as "user_password",
+               u.role                  as "user_role",
+               m.name                  as "module_name",
+               m.description           as "module_description",
+               c.term                  as "card_term",
+               c.definition            as "card_definition",
+               c.is_memorised          as "card_is_memorised",
+               refresh_time            as "refreshment_plan_refresh_time",
+               rs.refreshment_stage_id as "refreshment_stage_id",
+               rs.order                as "refreshment_stage_order",
+               rs.interval             as "refreshment_stage_interval",
+               t.tag_id                as "tag_id",
+               t.value                 as "tag_value"
         FROM refreshment_plans
                  JOIN cards c USING (card_id)
                  JOIN modules m USING (module_id)
                  JOIN libraries l USING (library_id)
                  JOIN users u USING (user_id)
                  JOIN modules_tags mt USING (module_id)
+                 JOIN refreshment_stages rs USING (refreshment_stage_id)
                  JOIN tags t USING (tag_id)
     </sql>
 
-    <select id="findBId" resultMap="RefreshmentPlanResultMap">
+    <select id="findById" resultMap="RefreshmentPlanResultMap">
         <include refid="select_refreshment_plan"/>
         WHERE refreshment_plan_id = #{id};
     </select>
@@ -52,8 +57,8 @@
     </select>
 
     <insert id="createByModuleId" keyProperty="id" keyColumn="refreshment_plan_id">
-        INSERT INTO refreshment_plans (card_id, refresh_time, refreshment_stage)
-        SELECT card_id, now()::date + interval '1 hour', 'FIRST'
+        INSERT INTO refreshment_plans (card_id, refresh_time,refreshment_stage_id)
+        SELECT card_id, now()::date + interval '1 hour', (SELECT refreshment_stage_id FROM refreshment_stages WHERE "order"=1)
         FROM cards
         WHERE cards.module_id = #{moduleId};
     </insert>
@@ -72,7 +77,7 @@
 
     <update id="changeStage">
         UPDATE refreshment_plans
-        SET refreshment_stage = #{stage},
+        SET refreshment_stage = #{stage}
         WHERE refreshment_plan_id = #{id};
     </update>
 

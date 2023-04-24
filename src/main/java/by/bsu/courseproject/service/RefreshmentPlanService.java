@@ -19,6 +19,6 @@ public interface RefreshmentPlanService {
 
     List<RefreshmentPlan> retrieveByStage(RefreshmentStage stage);
 
-    void changeStage(Long id, Boolean isNext);
+    void changeStage(Long refreshmentPlanId, Boolean isNext);
 
 }
