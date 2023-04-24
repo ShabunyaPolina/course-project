@@ -10,7 +10,7 @@
                      resultMap="by.bsu.courseproject.persistence.repository.CardRepository.CardResultMap"
                      autoMapping="false"/>
         <association column="refreshment_stage_id" property="stage"
-                     resultMap="by.bsu.courseproject.persistence.repository.RefreshmentStageRepositoryRepository.RefreshmentStageResultMap"
+                     resultMap="by.bsu.courseproject.persistence.repository.RefreshmentStageRepository.RefreshmentStageResultMap"
                      autoMapping="false"/>
     </resultMap>
 
@@ -59,7 +59,7 @@
 
     <insert id="createByModuleId" keyProperty="id" keyColumn="refreshment_plan_id">
         INSERT INTO refreshment_plans (card_id, refresh_time,refreshment_stage_id)
-        SELECT card_id, now()::date + interval '1 hour', (SELECT refreshment_stage_id FROM refreshment_stages WHERE "order"=1)
+        SELECT card_id, now()::timestamp + interval '1 hour', (SELECT refreshment_stage_id FROM refreshment_stages WHERE "order"=1)
         FROM cards
         WHERE cards.module_id = #{moduleId};
     </insert>
