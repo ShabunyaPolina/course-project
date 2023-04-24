@@ -17,6 +17,11 @@ public class RefreshmentPlanServiceImpl implements RefreshmentPlanService {
     private final RefreshmentPlanRepository refreshmentPlanRepository;
 
     @Override
+    public RefreshmentPlan retrieveById(Long id) {
+        return refreshmentPlanRepository.findById(id);
+    }
+
+    @Override
     @Transactional
     public void considerRefreshment(Long moduleId, Boolean needsRefreshment) {
         deleteByModuleId(moduleId);
@@ -33,6 +38,12 @@ public class RefreshmentPlanServiceImpl implements RefreshmentPlanService {
 
     @Override
     @Transactional
+    public void deleteById(Long id) {
+        refreshmentPlanRepository.deleteById(id);
+    }
+
+    @Override
+    @Transactional
     public void deleteByModuleId(Long moduleId) {
         refreshmentPlanRepository.deleteByModuleId(moduleId);
     }
@@ -41,6 +52,27 @@ public class RefreshmentPlanServiceImpl implements RefreshmentPlanService {
     @Transactional(readOnly = true)
     public List<RefreshmentPlan> retrieveByStage(RefreshmentStage stage) {
         return refreshmentPlanRepository.findByStage(stage);
+    }
+
+    @Override
+    @Transactional
+    public void changeStage(Long id, Boolean isNext) { // TODO
+        RefreshmentStage currentStage = retrieveById(id).getStage();
+        RefreshmentStage newStage;
+
+        if(isNext) {
+            if(currentStage == RefreshmentStage.THIRD) {
+                deleteById(id);
+            } else {
+                newStage = currentStage.next();
+                refreshmentPlanRepository.changeStage(id, newStage);
+            }
+        } else {
+            if(currentStage != RefreshmentStage.FIRST) {
+                newStage = currentStage.next();
+            }
+            refreshmentPlanRepository.changeStage(id, newStage);
+        }
     }
 
 }

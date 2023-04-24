@@ -37,4 +37,10 @@ public class RefreshmentPlanController {
         refreshmentPlanService.considerRefreshment(moduleId, needsRefreshment);
     }
 
+    @PostMapping("/{id}") // TODO
+    @ResponseStatus(value = HttpStatus.OK)
+    public void changeStage(@PathVariable("id") Long refreshmentPlanId,
+                            @RequestParam RefreshmentStage newStage) {
+        RefreshmentPlan refreshmentPlan = refreshmentPlanService.
+    }
 }

@@ -41,6 +41,11 @@
                  JOIN tags t USING (tag_id)
     </sql>
 
+    <select id="findBId" resultMap="RefreshmentPlanResultMap">
+        <include refid="select_refreshment_plan"/>
+        WHERE refreshment_plan_id = #{id};
+    </select>
+
     <select id="findByStage" resultMap="RefreshmentPlanResultMap">
         <include refid="select_refreshment_plan"/>
         WHERE refreshment_stage = #{stage};
@@ -53,10 +58,22 @@
         WHERE cards.module_id = #{moduleId};
     </insert>
 
+    <delete id="deleteById" parameterType="Long">
+        DELETE
+        FROM refreshment_plans
+        WHERE refreshment_plan_id = #{id};
+    </delete>
+
     <delete id="deleteByModuleId" parameterType="Long">
         DELETE
         FROM refreshment_plans
         WHERE card_id IN (SELECT card_id FROM cards WHERE module_id = #{moduleId});
     </delete>
+
+    <update id="changeStage">
+        UPDATE refreshment_plans
+        SET refreshment_stage = #{stage},
+        WHERE refreshment_plan_id = #{id};
+    </update>
 
 </mapper>
