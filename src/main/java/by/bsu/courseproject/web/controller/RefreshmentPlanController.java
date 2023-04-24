@@ -34,6 +34,20 @@ public class RefreshmentPlanController {
                 .toList();
     }
 
+    @PostMapping("/refreshment-plans/{refreshmentPlanId}")
+    @ResponseStatus(value = HttpStatus.OK)
+    @PreAuthorize("""
+            @securityExpressions.hasLibrary(#libraryId)
+            && @securityExpressions.hasRefreshmentPlan(#libraryId,#refreshmentPlanId)
+            """)
+    public void changeStage(
+            @PathVariable Long libraryId,
+            @PathVariable Long refreshmentPlanId,
+            @RequestParam Boolean isNext
+    ) {
+        refreshmentPlanService.changeStage(refreshmentPlanId, isNext);
+    }
+    
     @GetMapping("/refreshment-plans/pending")
     @ResponseStatus(value = HttpStatus.OK)
     @PreAuthorize("@securityExpressions.hasLibrary(#libraryId)")

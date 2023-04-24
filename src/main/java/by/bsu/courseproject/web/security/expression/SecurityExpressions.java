@@ -36,4 +36,7 @@ public class SecurityExpressions {
         return moduleId.equals(card.getModule().getId());
     }
 
+    public boolean hasRefreshmentPlan(Long libraryId, Long refreshmentPlanId) {
+        return true;//todo
+    }
 }

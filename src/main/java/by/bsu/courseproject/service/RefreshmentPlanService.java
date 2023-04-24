@@ -7,9 +7,13 @@ import java.util.List;
 
 public interface RefreshmentPlanService {
 
+    RefreshmentPlan retrieveById(Long id);
+
     void considerRefreshment(Long moduleId, Boolean needsRefreshment);
 
     void createByModuleId(Long moduleId);
+
+    void deleteById(Long id);
 
     void deleteByModuleId(Long moduleId);
 
@@ -18,5 +22,7 @@ public interface RefreshmentPlanService {
     List<RefreshmentPlan> retrievePendingByLibrary(Long libraryId);
 
     List<RefreshmentPlan> retrievePendingByModule(Long moduleId);
+
+    void changeStage(Long refreshmentPlanId, Boolean isNext);
 
 }
